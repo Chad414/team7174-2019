@@ -2,6 +2,7 @@
 #include "ctre/Phoenix.h"
 #include <frc/SpeedControllerGroup.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <SpeedController.h>
 
 #define TALON_DRIVE_LF 2
 #define TALON_DRIVE_LR 1
@@ -14,10 +15,16 @@ public:
 	Drivetrain();
 private:
 
-TalonSRX m_lDriveF;
-TalonSRX m_lDriveR;
-TalonSRX m_rDriveF;
-TalonSRX m_rDriveR;
+frc::Talon  m_lDriveF;
+frc::Talon  m_lDriveR;
+frc::Talon  m_rDriveF;
+frc::Talon  m_rDriveR;
+
+frc::SpeedControllerGroup m_left;
+frc::SpeedControllerGroup m_right;
+
+frc:DifferentialDrive m_drive;
+
 	
 };
 
