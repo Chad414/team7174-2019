@@ -13,8 +13,16 @@
 
 class Drivetrain {
 public:
-	Drivetrain();
+
+
+Drivetrain();
+
+void ArcadeDrive(double speed, double angle);
+
+
+
 private:
+
 
 frc::Talon  m_lDriveF;
 frc::Talon  m_lDriveR;
@@ -28,3 +36,4 @@ frc::DifferentialDrive m_drive;
 
 };
 
+//w

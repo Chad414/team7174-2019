@@ -9,3 +9,11 @@ Drivetrain::Drivetrain()
 	m_rSpeedGroup(m_rDriveF, m_rDriveR),
 	m_drive(m_lSpeedGroup, m_rSpeedGroup) {}
 
+	void Drivetrain::ArcadeDrive(double speed, double angle)//basic movement
+	{
+
+	m_drive.SetSafetyEnabled(true);
+	m_drive.ArcadeDrive(speed, angle);
+
+	}
+

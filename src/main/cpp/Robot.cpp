@@ -66,7 +66,13 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+if ((fabs (m_driver->AxisLY()) > 0.1 || fabs(m_driver->AxisRX())) > 0.1 )
+	{
+		m_drivetrain.ArcadeDrive(m_driver->AxisLY(), -m_driver->AxisRX());
+  }
+
+}
 
 void Robot::TestPeriodic() {}
 
