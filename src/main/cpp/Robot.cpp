@@ -6,34 +6,17 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
-#include "Drivetrain.h"
+
 #include <iostream>
 
 #include <frc/smartdashboard/SmartDashboard.h>
-class Robot : public frc::IterativeRobot
-{
-private:
 
-Drivetrain* m_drivetrain;
-
-
-
-public:
-
-Robot()
-{
-	m_drivetrain = new Drivetrain();
-}
-
+#include "Drivetrain.h"
 
 void Robot::RobotInit() {
-  /*
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
-  */
- 
 }
 
 /**
@@ -58,25 +41,24 @@ void Robot::RobotPeriodic() {}
  * make sure to add them to the chooser code above as well.
  */
 void Robot::AutonomousInit() {
-  // m_autoSelected = m_chooser.GetSelected();
+  m_autoSelected = m_chooser.GetSelected();
   // m_autoSelected = SmartDashboard::GetString("Auto Selector",
   //     kAutoNameDefault);
-  // std::cout << "Auto selected: " << m_autoSelected << std::endl;
+  std::cout << "Auto selected: " << m_autoSelected << std::endl;
 
-  // if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  // } else {
-    // Default Auto goes here
- //  }
-}
-
-void Robot::AutonomousPeriodic() {
-  /* if (m_autoSelected == kAutoNameCustom) {
+  if (m_autoSelected == kAutoNameCustom) {
     // Custom Auto goes here
   } else {
     // Default Auto goes here
   }
-  */
+}
+
+void Robot::AutonomousPeriodic() {
+  if (m_autoSelected == kAutoNameCustom) {
+    // Custom Auto goes here
+  } else {
+    // Default Auto goes here
+  }
 }
 
 void Robot::TeleopInit() {}
@@ -88,5 +70,3 @@ void Robot::TestPeriodic() {}
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
 #endif
-
-};
