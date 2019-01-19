@@ -11,7 +11,10 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-#include "Drivetrain.h"
+Robot::Robot()
+  : m_drivetrain() {
+
+}
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);

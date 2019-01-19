@@ -21,8 +21,8 @@ frc::Talon  m_lDriveR;
 frc::Talon  m_rDriveF;
 frc::Talon  m_rDriveR;
 
-frc::SpeedControllerGroup m_left;
-frc::SpeedControllerGroup m_right;
+frc::SpeedControllerGroup m_lSpeedGroup;
+frc::SpeedControllerGroup m_rSpeedGroup;
 
 frc::DifferentialDrive m_drive;
 
