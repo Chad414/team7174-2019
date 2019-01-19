@@ -7,10 +7,5 @@ Drivetrain::Drivetrain()
 	m_rDriveR(TALON_DRIVE_RR),
 	m_left( m_lDriveF, m_lDriveR),
 	m_right(m_rDriveF, m_rDriveR),
-	m_drive(m_left, m_right)
-
-
-{
- 
-}
+	m_drive(m_left, m_right) {}
 

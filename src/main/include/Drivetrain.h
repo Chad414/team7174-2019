@@ -2,7 +2,8 @@
 #include "ctre/Phoenix.h"
 #include <frc/SpeedControllerGroup.h>
 #include <frc/drive/DifferentialDrive.h>
-#include <SpeedController.h>
+#include <frc/SpeedController.h>
+#include <frc/Talon.h>
 
 #define TALON_DRIVE_LF 2
 #define TALON_DRIVE_LR 1
@@ -23,8 +24,7 @@ frc::Talon  m_rDriveR;
 frc::SpeedControllerGroup m_left;
 frc::SpeedControllerGroup m_right;
 
-frc:DifferentialDrive m_drive;
+frc::DifferentialDrive m_drive;
 
-	
 };
 
