@@ -11,10 +11,12 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Robot::Robot()
-  : m_drivetrain() {
 
-}
+
+Robot::Robot()
+  : m_drivetrain(),
+   m_driver(JOYSTICK_PORT)
+   {}
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -67,11 +69,11 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
-if ((fabs (m_driver->AxisLY()) > 0.1 || fabs(m_driver->AxisRX())) > 0.1 )
+if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 )
 	{
-		m_drivetrain.ArcadeDrive(m_driver->AxisLY(), -m_driver->AxisRX());
-  }
+		m_drivetrain.ArcadeDrive(m_driver.AxisLY(), -m_driver.AxisRX());
 
+}
 }
 
 void Robot::TestPeriodic() {}

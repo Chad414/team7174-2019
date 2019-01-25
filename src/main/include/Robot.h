@@ -13,6 +13,9 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include "Drivetrain.h"
+#include "ProtoJoystick.h"
+
+#define JOYSTICK_PORT 0
 
 class Robot : public frc::TimedRobot {
  public:
@@ -32,5 +35,6 @@ class Robot : public frc::TimedRobot {
   std::string m_autoSelected;
 
   Drivetrain m_drivetrain;
+  ProtoJoystick m_driver;
 };
 //w
