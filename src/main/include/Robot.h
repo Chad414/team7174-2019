@@ -16,6 +16,7 @@
 #include "ProtoJoystick.h"
 
 #define JOYSTICK_PORT 0
+#define SPEED_MULTIPLIER 1.0
 
 class Robot : public frc::TimedRobot {
  public:

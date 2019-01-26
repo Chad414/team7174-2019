@@ -19,15 +19,16 @@ Drivetrain();
 
 void ArcadeDrive(double speed, double angle);
 
+void testTalons();
 
 
 private:
 
 
-frc::Talon  m_lDriveF;
-frc::Talon  m_lDriveR;
-frc::Talon  m_rDriveF;
-frc::Talon  m_rDriveR;
+WPI_TalonSRX  m_lDriveF;
+WPI_TalonSRX  m_lDriveR;
+WPI_TalonSRX  m_rDriveF;
+WPI_TalonSRX  m_rDriveR;
 
 frc::SpeedControllerGroup m_lSpeedGroup;
 frc::SpeedControllerGroup m_rSpeedGroup;

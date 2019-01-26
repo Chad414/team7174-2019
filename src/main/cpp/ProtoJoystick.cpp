@@ -119,22 +119,22 @@ bool ProtoJoystick::ButtonPressed(kButton btn) {
 float ProtoJoystick::Axis(kAxis axis) {
  switch(axis) {
 	case kAxisLX:
-		return fabs(GetRawAxis(0));
+		return GetRawAxis(0);
 		break;
 	case kAxisLY:
-		return fabs(GetRawAxis(1));
+		return GetRawAxis(1);
 		break;
 	case kAxisLT:
-		return fabs(GetRawAxis(2));
+		return GetRawAxis(2);
 		break;
 	case kAxisRT:
-		return fabs(GetRawAxis(3));
+		return GetRawAxis(3);
 		break;
 	case kAxisRX:
-		return fabs(GetRawAxis(4));
+		return GetRawAxis(4);
 		break;
 	case kAxisRY:
-		return fabs(GetRawAxis(5));
+		return GetRawAxis(5);
 		break;
 	default:
 		return 0.0;
