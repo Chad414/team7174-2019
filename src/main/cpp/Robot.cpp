@@ -70,6 +70,8 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
 
+  std::cout << "Distance: " << m_drivetrain.getDistance() << std::endl;
+
   if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
 		m_drivetrain.ArcadeDrive(-(SPEED_MULTIPLIER * (m_driver.AxisLY())), (SPEED_MULTIPLIER * (m_driver.AxisRX())));
   }

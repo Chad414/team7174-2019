@@ -14,7 +14,7 @@
 #define DRIVE_ENCODER_L 0
 #define DRIVE_ENCODER_R 0
 
-#define DRIVE_ENCODER_COUNTS_PER_METER 0
+#define DRIVE_ENCODER_COUNTS_PER_METER 1
 
 class Drivetrain {
 public:
