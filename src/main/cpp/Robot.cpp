@@ -15,7 +15,8 @@
 
 Robot::Robot()
   : m_drivetrain(),
-   m_driver(JOYSTICK_PORT)
+   m_driver(JOYSTICK_PORT),
+   m_lime()
    {}
 
 void Robot::RobotInit() {

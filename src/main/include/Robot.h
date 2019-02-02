@@ -14,6 +14,7 @@
 
 #include "Drivetrain.h"
 #include "ProtoJoystick.h"
+#include "CitrusLumen.h"
 
 #define JOYSTICK_PORT 0
 #define SPEED_MULTIPLIER 1.0
@@ -35,7 +36,9 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
 
+
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;
+  CitrusLumen m_lime;
 };
 //w
