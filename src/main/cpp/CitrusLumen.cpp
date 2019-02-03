@@ -21,6 +21,7 @@ CitrusLumen::CitrusLumen(){
 
   double CitrusLumen::targetOffset_Horizontal(){
      return table->GetNumber("tx",0.0);
+     //left offset is positive, right offset is negative
  }
 
   double CitrusLumen::targetSkew(){

@@ -16,7 +16,8 @@
 Robot::Robot()
   : m_drivetrain(),
    m_driver(JOYSTICK_PORT),
-   m_lime()
+   m_lime(),
+   m_elevator()
    {}
 
 void Robot::RobotInit() {
@@ -73,8 +74,22 @@ void Robot::TeleopPeriodic() {
 
   std::cout << "Distance: " << m_drivetrain.getDistance() << std::endl;
 
+  if((m_lime.targetLocated()) && (m_driver.ButtonRT()) )
+  {
+   	m_drivetrain.ArcadeDrive( 0.0, (m_lime.targetOffset_Horizontal() * LIMELIGHT_RATIO));
+  }
+
   if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
 		m_drivetrain.ArcadeDrive(-(SPEED_MULTIPLIER * (m_driver.AxisLY())), (SPEED_MULTIPLIER * (m_driver.AxisRX())));
+  }
+
+  if((m_driver.ButtonLT()) || (m_driver.ButtonLB())) {
+    if(m_driver.ButtonLT()) {
+      m_elevator.translateElevator(ELEVATOR_SPEED);
+    }
+    else if(m_driver.ButtonLB()){
+      m_elevator.translateElevator(-ELEVATOR_SPEED);
+    }
   }
 
 }

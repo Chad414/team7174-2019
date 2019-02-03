@@ -7,22 +7,22 @@
 
 #pragma once
 
-#include "frc/smartdashboard/Smartdashboard.h"
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableInstance.h"
+#include <cmath>
+#include "ctre/Phoenix.h"
+#include <frc/Talon.h>
+#include <frc/Encoder.h>
 
-class CitrusLumen {
+#define ELEVATOR_TALON 0
+
+class Elevator {
  public:
-  CitrusLumen();
 
-  bool targetLocated();
+  Elevator();
 
-  double targetOffset_Vertical();
-  double targetOffset_Horizontal();
-  double targetSkew();
+  void translateElevator(double speed);
 
-  
-  
- private:
-  std::shared_ptr<NetworkTable> table;
+private:
+
+  WPI_TalonSRX  Lift;
+
 };

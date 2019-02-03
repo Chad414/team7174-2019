@@ -5,24 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "Elevator.h"
 
-#include "frc/smartdashboard/Smartdashboard.h"
-#include "networktables/NetworkTable.h"
-#include "networktables/NetworkTableInstance.h"
 
-class CitrusLumen {
- public:
-  CitrusLumen();
+Elevator::Elevator()
+:Lift(ELEVATOR_TALON)
 
-  bool targetLocated();
+ {}
 
-  double targetOffset_Vertical();
-  double targetOffset_Horizontal();
-  double targetSkew();
+void Elevator::translateElevator(double speed) {
 
-  
-  
- private:
-  std::shared_ptr<NetworkTable> table;
-};
+    Lift.Set(speed);
+ }

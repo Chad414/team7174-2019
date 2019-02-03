@@ -15,9 +15,12 @@
 #include "Drivetrain.h"
 #include "ProtoJoystick.h"
 #include "CitrusLumen.h"
+#include "Elevator.h"
 
 #define JOYSTICK_PORT 0
 #define SPEED_MULTIPLIER 1.0
+#define LIMELIGHT_RATIO .27
+#define ELEVATOR_SPEED .20
 
 class Robot : public frc::TimedRobot {
  public:
@@ -40,5 +43,6 @@ class Robot : public frc::TimedRobot {
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;
   CitrusLumen m_lime;
+  Elevator m_elevator;
 };
 //w
