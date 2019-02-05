@@ -11,7 +11,13 @@
 #include "networktables/NetworkTable.h"
 #include "networktables/NetworkTableInstance.h"
 
+#define AREA_TO_DISTANCE_MULTIPLIER 1 //THIS NUMBER REQUIRES CALIBRATION ONCE CIRCUIT BOARD IS RUNNING.
+#define LIMELIGHT_SPEED 0.5
+#define LIMELIGHT_MIN_DISTANCE 100
+
+
 class CitrusLumen {
+ 
  public:
   CitrusLumen();
 
@@ -20,9 +26,12 @@ class CitrusLumen {
   double targetOffset_Vertical();
   double targetOffset_Horizontal();
   double targetSkew();
-
-  
+  double targetArea();
+  double targetDistance();
+  double limelightSpeed();
   
  private:
   std::shared_ptr<NetworkTable> table;
+ 
+  
 };

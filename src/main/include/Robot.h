@@ -19,8 +19,9 @@
 
 #define JOYSTICK_PORT 0
 #define SPEED_MULTIPLIER 1.0
-#define LIMELIGHT_RATIO .27
-#define ELEVATOR_SPEED .20
+#define LIMELIGHT_ANGLE 0.037 // == 1/27
+#define LIMELIGHT_MAX_DISTANCE 500
+#define ELEVATOR_SPEED 1.0
 
 class Robot : public frc::TimedRobot {
  public:
