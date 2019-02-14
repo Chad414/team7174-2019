@@ -48,6 +48,7 @@ typedef enum {
 
 
   bool Button(int btns);
+  bool Button(kButton btn);
   float Axis(kAxis axis);
   bool ButtonPressed(kButton btn);
 

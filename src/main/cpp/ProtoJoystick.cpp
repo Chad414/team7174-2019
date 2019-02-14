@@ -13,6 +13,33 @@ f_A = f_B = f_X = f_Y = f_LB = f_RB = f_Back = f_Start = f_L3 = f_R3 = f_LT = f_
 }
 
 
+bool ProtoJoystick::Button(kButton btn) {
+	switch (btn) {
+	case kButtonA:
+		return GetRawButton(1);
+	case kButtonB:
+		return GetRawButton(2);
+	case kButtonX:
+		return GetRawButton(3);
+	case kButtonY:
+		return GetRawButton(4);
+	case kButtonLB:
+		return GetRawButton(5);
+	case kButtonRB:
+		return GetRawButton(6);
+	case kButtonStart:
+		return GetRawButton(8);
+	case kButtonBack:
+		return GetRawButton(7);
+	case kButtonLT:
+		return GetRawAxis(2) > 0.4;
+	case kButtonRT:
+		return GetRawAxis(3) > 0.4;
+	default:
+		return false;
+	}
+}
+
 bool ProtoJoystick::Button(int btn) {
 	if ((btn & kButtonA) && !Button(kButtonA)) {
 		return false;

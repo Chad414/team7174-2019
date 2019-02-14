@@ -4,7 +4,7 @@
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedController.h>
 #include <frc/Talon.h>
-#include <frc/Encoder.h>
+//#include <frc/Encoder.h>
 
 #define TALON_DRIVE_LF 2
 #define TALON_DRIVE_LR 1
@@ -16,6 +16,7 @@
 
 #define DRIVE_ENCODER_COUNTS_PER_METER 1
 
+
 class Drivetrain {
 public:
 
@@ -25,7 +26,7 @@ Drivetrain();
 void ArcadeDrive(double speed, double angle);
 
 
-double getDistance();
+//double getDistance();
 
 private:
 
@@ -39,10 +40,11 @@ frc::SpeedControllerGroup m_lSpeedGroup;
 frc::SpeedControllerGroup m_rSpeedGroup;
 
 frc::DifferentialDrive m_drive;
-
+/*
 frc::Encoder m_lEncoder;
 frc::Encoder m_rEncoder;
 
+*/
+
 };
 
-//w
