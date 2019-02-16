@@ -43,6 +43,7 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
   //std::cout << "Distance: " << m_drivetrain.getDistance() << std::endl;
   std::cout << "Limelight ta: " << m_lime.targetDistance() << std::endl;
+  std::cout<<"Limelight detected:" << m_lime.targetLocated() << std::endl;
   //std::cout << "Limelight Speed: " << m_lime.limelightSpeed() << std::endl;
 
   if((m_lime.targetLocated()) && (m_driver.ButtonRT())) {
