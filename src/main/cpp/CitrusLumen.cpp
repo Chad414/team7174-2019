@@ -8,7 +8,7 @@
 #include "CitrusLumen.h"
 
 CitrusLumen::CitrusLumen(){
-    std::shared_ptr<NetworkTable> table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
+    table = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 }
 
 bool CitrusLumen::targetLocated(){
@@ -31,11 +31,11 @@ double CitrusLumen::targetArea(){
      return table->GetNumber("ta",0.0);
 }
 
-double CitrusLumen::targetDistance(){
-    return targetArea()*AREA_TO_DISTANCE_MULTIPLIER;
+double CitrusLumen::targetDistance() {
+    return targetArea() * AREA_TO_DISTANCE_MULTIPLIER;
 }
 
-double CitrusLumen::limelightSpeed(){
+double CitrusLumen::limelightSpeed() {
 if (targetDistance()<LIMELIGHT_MIN_DISTANCE){
     return 0;
 }

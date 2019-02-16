@@ -42,13 +42,12 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() {
   //std::cout << "Distance: " << m_drivetrain.getDistance() << std::endl;
-  //std::cout<<"Limelight ta: "<<m_lime.targetDistance()<<std::endl;
+  //std::cout << "Limelight ta: " << m_lime.targetDistance() << std::endl;
+  //std::cout << "Limelight Speed: " << m_lime.limelightSpeed() << std::endl;
 
-  /*
   if((m_lime.targetLocated()) && (m_driver.ButtonRT()) && (m_lime.targetDistance()<LIMELIGHT_MAX_DISTANCE)) {
    	m_drivetrain.ArcadeDrive(-m_lime.limelightSpeed(), LIMELIGHT_ANGLE * m_lime.targetOffset_Horizontal() );
   }
-  */
 
   if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
 		m_drivetrain.ArcadeDrive(-(SPEED_MULTIPLIER * (m_driver.AxisLY())), (SPEED_MULTIPLIER * (m_driver.AxisRX())));
