@@ -13,7 +13,8 @@
 
 #define AREA_TO_DISTANCE_MULTIPLIER 1 //THIS NUMBER REQUIRES CALIBRATION ONCE CIRCUIT BOARD IS RUNNING.
 #define LIMELIGHT_SPEED 0.5
-#define LIMELIGHT_MIN_DISTANCE 100
+#define LIMELIGHT_MIN_DISTANCE 0
+#define LIMELIGHT_TURNSPEED 0.5
 
 
 class CitrusLumen {
@@ -29,6 +30,7 @@ class CitrusLumen {
   double targetArea();
   double targetDistance();
   double limelightSpeed();
+  double horizontalSpeed();
   
  private:
   std::shared_ptr<NetworkTable> table;

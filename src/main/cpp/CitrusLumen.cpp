@@ -36,11 +36,27 @@ double CitrusLumen::targetDistance() {
 }
 
 double CitrusLumen::limelightSpeed() {
-if (targetDistance()<LIMELIGHT_MIN_DISTANCE){
-    return 0;
+    if (targetDistance()<LIMELIGHT_MIN_DISTANCE){
+        return 0;
+    }
+    else {
+        return LIMELIGHT_SPEED;
+    }
 }
-else {
-    return LIMELIGHT_SPEED;
+double CitrusLumen::horizontalSpeed(){
+
+    if (abs(targetOffset_Horizontal()) > 2) {
+
+        if(targetOffset_Horizontal() > 0) {
+            return -LIMELIGHT_TURNSPEED;
+        } else {
+            return LIMELIGHT_TURNSPEED;
+        }
+
+    } else {
+        return 0;
+    }
 }
 
-}
+
+
