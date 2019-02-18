@@ -4,9 +4,11 @@
 #include "ctre/Phoenix.h"
 #include <frc/Talon.h>
 #include <frc/Encoder.h>
+#include <frc/Victor.h>
 
-#define BALL_OBTAINER_TALON 0
-#define BALL_ANGLE_TALON 0
+#define RBALL_OBTAINER_VICTOR 6
+#define LBALL_OBTAINER_VICTOR 7
+#define BALL_ANGLE_TALON 5
 
 class Intake {
  public:
@@ -18,7 +20,9 @@ class Intake {
 
 private:
 
-  WPI_TalonSRX  BallObtainer;
+  WPI_VictorSPX  LBallObtainer;
+  WPI_VictorSPX  RBallObtainer;
   WPI_TalonSRX  BallAngle;
+  
 
 };

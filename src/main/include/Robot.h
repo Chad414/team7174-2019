@@ -16,7 +16,10 @@
 #include "ProtoJoystick.h"
 #include "CitrusLumen.h"
 #include "Elevator.h"
+#include "Intake.h"
 #include <frc/IterativeRobotBase.h>
+//#include <frc/Ultrasonic.h>
+
 
 #define JOYSTICK_PORT 0
 #define SPEED_MULTIPLIER 0.5
@@ -34,6 +37,7 @@ class Robot : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+  void consoleOut(std::string desc, double output);
 
   //void disableInit();
   //void disablePeriodic();
@@ -48,5 +52,7 @@ class Robot : public frc::TimedRobot {
   ProtoJoystick m_driver;
   CitrusLumen m_lime;
   Elevator m_elevator;
+  Intake m_intake;
+  //frc::Ultrasonic *ultra;
 };
 //w

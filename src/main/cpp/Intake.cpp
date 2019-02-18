@@ -2,14 +2,16 @@
 
 
 Intake::Intake()
-:BallObtainer(BALL_OBTAINER_TALON),
+:LBallObtainer(LBALL_OBTAINER_VICTOR),
+RBallObtainer(RBALL_OBTAINER_VICTOR),
 BallAngle(BALL_ANGLE_TALON)
 
  {}
 
 void Intake::inOutBall(double speed) {
 
-    BallObtainer.Set(speed);
+    LBallObtainer.Set(speed);
+    RBallObtainer.Set(speed);
  }
 
 void Intake::inOutAngle(double speed) {

@@ -11,11 +11,7 @@
     ".classpath": true,
     ".project": true
   },
-<<<<<<< Updated upstream
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "wpilib.online": true,
   "C_Cpp.intelliSenseEngineFallback": "Disabled"
-=======
-  "wpilib.online": true
->>>>>>> Stashed changes
 }
