@@ -10,9 +10,14 @@
 
 Elevator::Elevator()
 :Lift(ELEVATOR_TALON)
+//ultra(0,1)
 
- {ultra = new frc::Ultrasonic(0,1);
- ultra->SetAutomaticMode(true);
+ {
+    ultra = new frc::Ultrasonic(0,1);
+    ultra->SetAutomaticMode(true);
+    //ai = new frc::AnalogInput(0);
+
+    //ultra.SetAutomaticMode(true);
  }
 
 void Elevator::translateElevator(double speed) {
@@ -21,21 +26,27 @@ void Elevator::translateElevator(double speed) {
  }
 
 double Elevator::getUltraInches(){
+    //return ultra.GetRangeInches();
     return ultra->GetRangeInches();
 }
 
 void Elevator::setHeight(double height){
-    double tolerance = 1;
-    double currentHeight = getUltraInches();
+    currentHeight = getUltraInches();
 
-
-    if (currentHeight<height && abs(height-currentHeight)>tolerance){
+    if (currentHeight<height && abs(height-currentHeight)>TOLERANCE_INCHES){
         Lift.Set(0.5);
     }
-    else if (getUltraInches()>height  && abs(height-currentHeight)>tolerance){
+    else if (getUltraInches()>height  && abs(height-currentHeight)>TOLERANCE_INCHES){
         Lift.Set(-0.5);
     }
     else{
         Lift.Set(0.06);
     }
 }
+
+
+/*
+double Elevator::getUltra2Inches(){
+    return (ai->GetVoltage() * (VOLTAGE_MULTIPLIER));
+}
+*/

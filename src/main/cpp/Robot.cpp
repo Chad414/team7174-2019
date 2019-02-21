@@ -5,13 +5,12 @@
 Robot::Robot()
   : m_drivetrain(),
    m_driver(JOYSTICK_PORT),
+   m_driver2(JOYSTICK2_PORT),
    m_lime(),
    m_intake(),
    m_elevator()
-   
    {}
 
-int consoleOutputCounter;
 void Robot::consoleOut(std::string desc, double output){
   if (consoleOutputCounter==50){
   std::cout << desc << output << std::endl;
@@ -27,11 +26,14 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   //ultra = new frc::Ultrasonic(0,1);
+  m_drivetrain.resetEncoders();
 }
 
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() {
+  m_drivetrain.resetEncoders();
+
   m_autoSelected = m_chooser.GetSelected();
   // m_autoSelected = SmartDashboard::GetString("Auto Selector",
   //     kAutoNameDefault);
@@ -52,29 +54,35 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() {}
-  
+void Robot::TeleopInit() {
+  m_drivetrain.resetEncoders();
+}
+
 void Robot::TeleopPeriodic() {
-
+//Robot::consoleOut("range2: ", m_elevator.getUltra2Inches());
 Robot::consoleOut("range: ", m_elevator.getUltraInches());
-  //std::cout << "Distance: " << m_drivetrain.getDistance() << std::endl;
-  //std::cout << "Limelight ta: " << m_lime.targetDistance() << std::endl;
-  //std::cout<<"Limelight detected:" << m_lime.targetLocated() << std::endl;
-  //std::cout << "Limelight Speed: " << m_lime.limelightSpeed() << std::endl;
-  
+//Robot::consoleOut("Encoder distance: ", m_drivetrain.getDistance());
+//Robot::consoleOut("Arm Distance: ", m_intake.getDistance());
+//Robot::consoleOut("Limelight ta: ", m_lime.targetDistance());
+//Robot::consoleOut("Limelight target detected: ", m_lime.targetLocated());
+//Robot::consoleOut("Limelight Speed: ", m_lime.limelightSpeed());
 
-///////////////////////////////////////
+  /////////////////////////////////////////
   if((m_lime.targetLocated()) && (m_driver.ButtonB())) {
-    consoleOut("limelight running: ", 1);
    	m_drivetrain.ArcadeDrive(m_lime.limelightSpeed(), m_lime.horizontalSpeed() );
   }
-/////////////////////////////////////////
-  if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
+  else if ((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
 
 		m_drivetrain.ArcadeDrive(-(SPEED_MULTIPLIER * (m_driver.AxisLY())), (SPEED_MULTIPLIER * (m_driver.AxisRX())));
   }
-//////////////////////////////////////////////////////////
-  if(m_driver.ButtonLT()) {
+  else{
+    m_drivetrain.ArcadeDrive(0.0,0.0);
+  }
+  /////////////////////////////////////////
+  if(m_driver.ButtonA()) {
+    m_elevator.setHeight(71.0);
+  }
+  else if(m_driver.ButtonLT()) {
      m_elevator.translateElevator(-ELEVATOR_SPEED);
   }
   else if(m_driver.ButtonLB()){
@@ -83,11 +91,7 @@ Robot::consoleOut("range: ", m_elevator.getUltraInches());
   else {
      m_elevator.translateElevator(0.06);
   }
-  //////////////////////////////////////////
-  if(m_driver.ButtonA()) {
-    m_elevator.setHeight(12.0);
-  }
-///////////////////////////////////////
+  /////////////////////////////////////////
   if(m_driver.ButtonRT()) {
     m_intake.inOutBall(0.5);
   }
@@ -97,18 +101,13 @@ Robot::consoleOut("range: ", m_elevator.getUltraInches());
   else {
      m_intake.inOutBall(0.0);
   }
-/////////////////////////////////////////
+  /////////////////////////////////////////
   if (m_driver.ButtonY()) {
-    m_intake.inOutAngle(0.2);
-    std::cout<<"button y"<<std::endl;
-  }
-  
+    m_intake.inOutAngle(0.3);
+   }
   else if ((m_driver.ButtonX())) {
-    m_intake.inOutAngle(-0.2);
-    std::cout<<"button x"<<std::endl;
-  }
-
-
+    m_intake.inOutAngle(-0.3);
+   }
   else{
     m_intake.inOutAngle(0.0);
   }
