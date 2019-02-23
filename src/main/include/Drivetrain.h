@@ -18,6 +18,8 @@ Drivetrain();
 void ArcadeDrive(double speed, double angle);
 double getDistance();
 void resetEncoders();
+void encoderWrite(double rightDistance, double leftDistance);
+double velocityMultiplier();
 
 private:
 WPI_TalonSRX  m_lDriveF;

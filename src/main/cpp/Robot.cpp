@@ -27,6 +27,7 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   //ultra = new frc::Ultrasonic(0,1);
   m_drivetrain.resetEncoders();
+
 }
 
 void Robot::RobotPeriodic() {}
@@ -46,12 +47,15 @@ void Robot::AutonomousInit() {
   }
 }
 
-void Robot::AutonomousPeriodic() {
+void Robot::AutonomousPeriodic(){
+
   if (m_autoSelected == kAutoNameCustom) {
     // Custom Auto goes here
   } else {
     // Default Auto goes here
   }
+
+  m_drivetrain.encoderWrite(1.0, 1.0);
 }
 
 void Robot::TeleopInit() {
