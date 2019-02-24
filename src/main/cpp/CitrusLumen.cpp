@@ -31,7 +31,10 @@ double CitrusLumen::targetDistance() {
 }
 
 double CitrusLumen::limelightSpeed() {
-    if (targetArea()>LIMELIGHT_MAX_AREA){
+    if (targetArea()>10){//when area >10 slow to 0.25 power. 
+        return 0.25;
+    }
+    else if (targetArea()>LIMELIGHT_MAX_AREA){
         return 0.0;
     }
     else {

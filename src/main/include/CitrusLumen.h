@@ -13,9 +13,9 @@
 #include <cmath>
 
 #define AREA_TO_DISTANCE_MULTIPLIER 1 //THIS NUMBER REQUIRES CALIBRATION ONCE CIRCUIT BOARD IS RUNNING.
-#define LIMELIGHT_SPEED 0.5
+#define LIMELIGHT_SPEED 0.7//defaultl speed
 #define LIMELIGHT_MAX_AREA 8 //13.5 is too close
-#define LIMELIGHT_MAX_CORRECTION 12
+#define LIMELIGHT_MAX_CORRECTION 12 //degrees correction for ball. Hatch shouldn't need corrections. 
 
 #define LIMELIGHT_TURNSPEED 0.5
 #define LIMELIGHT_TOLERANCE 2

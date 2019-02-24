@@ -10,9 +10,11 @@
 #include "Intake.h"
 #include <frc/IterativeRobotBase.h>
 
+#include <frc/Timer.h>
+
 #define JOYSTICK_PORT 0
 #define JOYSTICK2_PORT 1
-#define SPEED_MULTIPLIER 1.0
+#define SPEED_MULTIPLIER 0.5
 #define ELEVATOR_SPEED 0.3
 
 class Robot : public frc::TimedRobot {
@@ -34,6 +36,9 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+  
+  int autonCase;
+  frc::Timer autonTimer;
 
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;

@@ -21,6 +21,13 @@ double Drivetrain::getDistance() {
 	return ((-m_lDriveF.GetSelectedSensorPosition(0) + m_rDriveR.GetSelectedSensorPosition(0)) / 2);
 }
 
+double Drivetrain::getRDistance() {
+	return m_rDriveR.GetSelectedSensorPosition(0);
+}
+
+double Drivetrain::getLDistance() {
+	return -m_lDriveF.GetSelectedSensorPosition(0);
+}
 /*double Drivetrain::velocityMultiplier(){
 
 	if(m_rDriveR.GetSelectedSensorVelocity(0) > -m_lDriveF.GetSelectedSensorVelocity(0) ){
@@ -47,28 +54,27 @@ void Drivetrain::encoderWrite(double rightDistance, double leftDistance){
 
 	
 
-	if( (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_METER) < rightDistance ){
-		
-		m_rSpeedGroup.Set(.5);
+	if( (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) < rightDistance ){
+		m_rSpeedGroup.Set(-0.2);
     }
 	else{
-		m_rDriveR.ConfigFactoryDefault();
 		m_rSpeedGroup.Set(0.0);
 	}
 
-
-	if( (m_lDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_METER) < leftDistance ){
-	
-		m_lSpeedGroup.Set(.5);
+	if( (-m_lDriveF.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) < leftDistance ){
+		m_lSpeedGroup.Set(0.2);
     }
 	else{
 		m_lSpeedGroup.Set(0.0);
-		m_lDriveF.ConfigFactoryDefault();
+	}
+
+	if ( ((-m_lDriveF.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) >= leftDistance) && (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) >= rightDistance) {
+		//autonCase++;
 	}
    
 }
 
 void Drivetrain::resetEncoders() {
-	m_lDriveF.ConfigFactoryDefault();
-	m_rDriveR.ConfigFactoryDefault();
+	m_lDriveF.SetSelectedSensorPosition(0.0);
+	m_rDriveR.SetSelectedSensorPosition(0.0);
 }
