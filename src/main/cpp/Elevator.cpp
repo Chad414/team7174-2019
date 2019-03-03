@@ -30,14 +30,23 @@ double Elevator::getUltraInches(){
     return ultra->GetRangeInches();
 }
 
-void Elevator::setHeight(double height){
+void Elevator::setHeight(double height) {
     currentHeight = getUltraInches();
-
-    if (currentHeight<height && abs(height-currentHeight)>TOLERANCE_INCHES){
-        Lift.Set(0.5);
+    if ( (height - currentHeight) >= 0) {
+        upDown = 1;
     }
-    else if (getUltraInches()>height  && abs(height-currentHeight)>TOLERANCE_INCHES){
-        Lift.Set(-0.5);
+    else {
+        upDown = -1;
+    }
+
+    if (abs(height-currentHeight)>TOLERANCE_INCHES && abs(height-currentHeight)>8){
+        Lift.Set(1.0 * upDown);
+    }
+    else if (abs(height-currentHeight)>TOLERANCE_INCHES && abs(height-currentHeight)>6){
+        Lift.Set(0.55 * upDown);
+    }
+    else if (abs(height-currentHeight)>TOLERANCE_INCHES && abs(height-currentHeight)>3){
+        Lift.Set(0.4 * upDown);
     }
     else{
         Lift.Set(0.06);
@@ -46,7 +55,15 @@ void Elevator::setHeight(double height){
 
 
 /*
-double Elevator::getUltra2Inches(){
+
+
+    else if (getUltraInches()>height  && abs(height-currentHeight)>TOLERANCE_INCHES){
+        Lift.Set(-0.5);
+    }
+
+
+
+
+ double Elevator::getUltra2Inches(){
     return (ai->GetVoltage() * (VOLTAGE_MULTIPLIER));
-}
-*/
+}*/

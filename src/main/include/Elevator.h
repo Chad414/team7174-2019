@@ -4,6 +4,7 @@
 #include "ctre/Phoenix.h"
 #include <frc/Talon.h>
 #include <frc/Ultrasonic.h>
+#include <frc/SerialPort.h>
 //#include <frc/DigitalInput.h>
 
 #define ELEVATOR_TALON 0
@@ -32,5 +33,6 @@ private:
 
 
   double currentHeight=0;
+  int upDown = 0;
 
 };

@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 #include "CitrusLumen.h"
 
 CitrusLumen::CitrusLumen(){
@@ -31,12 +24,18 @@ double CitrusLumen::targetDistance() {
 }
 
 double CitrusLumen::limelightSpeed() {
-    if (targetArea()>10){//when area >10 slow to 0.25 power. 
-        return 0.25;
-    }
-    else if (targetArea()>LIMELIGHT_MAX_AREA){
+    if (targetArea()>LIMELIGHT_MAX_AREA){
         return 0.0;
     }
+    
+    else if (targetArea()>10){//when area >10 slow to 0.25 power. 
+        return 0.25;
+    }
+
+    else if (targetArea()>7){
+        return 0.4;
+    }
+
     else {
         return LIMELIGHT_SPEED;
     }

@@ -25,9 +25,7 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  //ultra = new frc::Ultrasonic(0,1);
-  m_drivetrain.resetEncoders();
-
+  //m_drivetrain.resetEncoders();
 }
 
 void Robot::RobotPeriodic() {}
@@ -51,13 +49,12 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic(){
   
   /* // Don't think we need this stuff. 
-  if (m_autoSelected == kAutoNameCustom) {
-    // Custom Auto goes here
-  } else {
-    // Default Auto goes here
-  }
-  */
-  
+    if (m_autoSelected == kAutoNameCustom) {
+     // Custom Auto goes here
+    } else {
+     // Default Auto goes here
+    }*/
+  /*
   switch (autonCase){
     
     case 0:
@@ -67,6 +64,8 @@ void Robot::AutonomousPeriodic(){
     case 1:
     break;
 		}
+
+    */
 }
 
 void Robot::TeleopInit() {
@@ -75,13 +74,13 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
   //Robot::consoleOut("range2: ", m_elevator.getUltra2Inches());
-  //Robot::consoleOut("range: ", m_elevator.getUltraInches());
+  Robot::consoleOut("range: ", m_elevator.getUltraInches());
 
   //Robot::consoleOut("Encoder distance: ", m_drivetrain.getDistance());
   //Robot::consoleOut("Arm Distance: ", m_intake.getDistance());
-  Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
-  Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getRDistance());
-  //Robot::consoleOut("Limelight ta: ", m_lime.targetDistance());
+  //Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
+  //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getRDistance());
+  //Robot::consoleOut("Lime light ta: ", m_lime.targetDistance());
   //Robot::consoleOut("Limelight target detected: ", m_lime.targetLocated());
   //Robot::consoleOut("Limelight Speed: ", m_lime.limelightSpeed());
 
@@ -97,7 +96,7 @@ void Robot::TeleopPeriodic() {
   }
   //   ELEVATOR   ///////////////////////////////////////
   if(m_driver.ButtonA()) {
-    m_elevator.setHeight(60.0);
+    m_elevator.setHeight(50.0);
   }
   else if(m_driver.ButtonLT()) {
      m_elevator.translateElevator(-ELEVATOR_SPEED);
@@ -106,24 +105,24 @@ void Robot::TeleopPeriodic() {
      m_elevator.translateElevator(ELEVATOR_SPEED);
   }
   else {
-     m_elevator.translateElevator(0.06);
+     m_elevator.translateElevator(0.07);
   }
   //   INTAKE   ///////////////////////////////////////
   if(m_driver.ButtonRT()) {
     m_intake.inOutBall(0.5);
   }
   else if(m_driver.ButtonRB()){
-     m_intake.inOutBall(-0.5);
+     m_intake.inOutBall(-1.0);
   }
   else {
      m_intake.inOutBall(0.0);
   }
   //   TILT   ///////////////////////////////////////
   if (m_driver.ButtonY()) {
-    m_intake.inOutAngle(0.3);
+    m_intake.inOutAngle(0.6);
    }
   else if ((m_driver.ButtonX())) {
-    m_intake.inOutAngle(-0.3);
+    m_intake.inOutAngle(-0.6);
    }
   else{
     m_intake.inOutAngle(0.0);

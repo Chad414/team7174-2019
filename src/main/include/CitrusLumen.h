@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 #pragma once
 
 #include "frc/smartdashboard/Smartdashboard.h"
@@ -13,7 +6,7 @@
 #include <cmath>
 
 #define AREA_TO_DISTANCE_MULTIPLIER 1 //THIS NUMBER REQUIRES CALIBRATION ONCE CIRCUIT BOARD IS RUNNING.
-#define LIMELIGHT_SPEED 0.7//defaultl speed
+#define LIMELIGHT_SPEED 0.55//defaultl speed
 #define LIMELIGHT_MAX_AREA 8 //13.5 is too close
 #define LIMELIGHT_MAX_CORRECTION 12 //degrees correction for ball. Hatch shouldn't need corrections. 
 

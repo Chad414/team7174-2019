@@ -8,6 +8,8 @@ Drivetrain::Drivetrain()
 	m_lSpeedGroup( m_lDriveF, m_lDriveR),
 	m_rSpeedGroup(m_rDriveF, m_rDriveR),
 	m_drive(m_lSpeedGroup, m_rSpeedGroup)
+
+	//m_robot()
 {
 		m_drive.SetSafetyEnabled(false);
 }
@@ -28,6 +30,7 @@ double Drivetrain::getRDistance() {
 double Drivetrain::getLDistance() {
 	return -m_lDriveF.GetSelectedSensorPosition(0);
 }
+
 /*double Drivetrain::velocityMultiplier(){
 
 	if(m_rDriveR.GetSelectedSensorVelocity(0) > -m_lDriveF.GetSelectedSensorVelocity(0) ){
@@ -44,16 +47,9 @@ double Drivetrain::getLDistance() {
 	}
 
 	//if left is faster= negative, if right faster = positive
-}
-	*/
-
-
-
+}*/
  
 void Drivetrain::encoderWrite(double rightDistance, double leftDistance){
-
-	
-
 	if( (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) < rightDistance ){
 		m_rSpeedGroup.Set(-0.2);
     }
@@ -67,11 +63,11 @@ void Drivetrain::encoderWrite(double rightDistance, double leftDistance){
 	else{
 		m_lSpeedGroup.Set(0.0);
 	}
-
+/*
 	if ( ((-m_lDriveF.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) >= leftDistance) && (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT) >= rightDistance) {
-		//autonCase++;
+		//m_robot.autonCase++;
 	}
-   
+*/
 }
 
 void Drivetrain::resetEncoders() {

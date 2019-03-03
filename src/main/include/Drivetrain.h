@@ -4,6 +4,7 @@
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedController.h>
 #include <frc/Talon.h>
+//#include "Robot.h"
 
 #define TALON_DRIVE_LF 2
 #define TALON_DRIVE_LR 1
@@ -33,4 +34,6 @@ WPI_TalonSRX  m_rDriveR;
 frc::SpeedControllerGroup m_lSpeedGroup;
 frc::SpeedControllerGroup m_rSpeedGroup;
 frc::DifferentialDrive m_drive;
+
+//Robot m_robot;
 };

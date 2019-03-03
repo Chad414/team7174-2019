@@ -14,8 +14,8 @@
 
 #define JOYSTICK_PORT 0
 #define JOYSTICK2_PORT 1
-#define SPEED_MULTIPLIER 0.5
-#define ELEVATOR_SPEED 0.3
+#define SPEED_MULTIPLIER 0.75
+#define ELEVATOR_SPEED 0.5
 
 class Robot : public frc::TimedRobot {
  public:
@@ -29,7 +29,10 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
 
   void consoleOut(std::string desc, double output);
-  int consoleOutputCounter;
+  int consoleOutputCounter;  
+  int autonCase;
+  //frc::Timer autonTimer;
+
 
  private:
   frc::SendableChooser<std::string> m_chooser;
@@ -37,9 +40,6 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
   
-  int autonCase;
-  frc::Timer autonTimer;
-
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;
   ProtoJoystick m_driver2;
