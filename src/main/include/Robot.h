@@ -14,7 +14,6 @@
 
 #define JOYSTICK_PORT 0
 #define JOYSTICK2_PORT 1
-#define SPEED_MULTIPLIER 0.75
 #define ELEVATOR_SPEED 0.5
 
 class Robot : public frc::TimedRobot {
@@ -39,6 +38,7 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
+  double speedMultiplier;
   
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;

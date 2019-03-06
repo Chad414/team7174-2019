@@ -4,7 +4,6 @@
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedController.h>
 #include <frc/Talon.h>
-//#include "Robot.h"
 
 #define TALON_DRIVE_LF 2
 #define TALON_DRIVE_LR 1
@@ -21,10 +20,13 @@ void ArcadeDrive(double speed, double angle);
 double getDistance();
 double getRDistance();
 double getLDistance();
+double getRVelocity();
+double getLVelocity();
 
 void resetEncoders();
 void encoderWrite(double rightDistance, double leftDistance);
-double velocityMultiplier();
+bool autonDrivetrain(double rVelocity, double lVelocity, double rDistance, double lDistance);
+double velocityMultiplier(double firstV, double secondV, double firstEncoderSpeed, double secondEncoderSpeed);
 
 private:
 WPI_TalonSRX  m_lDriveF;

@@ -27,7 +27,7 @@ private:
 
   WPI_TalonSRX Lift;
   //frc::Ultrasonic ultra;
-  frc::Ultrasonic *ultra;
+  //frc::Ultrasonic *ultra;
   
   //frc::AnalogInput *ai;
 

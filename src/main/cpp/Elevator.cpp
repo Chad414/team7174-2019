@@ -13,8 +13,8 @@ Elevator::Elevator()
 //ultra(0,1)
 
  {
-    ultra = new frc::Ultrasonic(0,1);
-    ultra->SetAutomaticMode(true);
+    //ultra = new frc::Ultrasonic(0,1);
+    //ultra->SetAutomaticMode(true);
     //ai = new frc::AnalogInput(0);
 
     //ultra.SetAutomaticMode(true);
@@ -27,7 +27,7 @@ void Elevator::translateElevator(double speed) {
 
 double Elevator::getUltraInches(){
     //return ultra.GetRangeInches();
-    return ultra->GetRangeInches();
+    //return ultra->GetRangeInches();
 }
 
 void Elevator::setHeight(double height) {
