@@ -9,7 +9,7 @@
 #define TALON_DRIVE_LR 1
 #define TALON_DRIVE_RF 4
 #define TALON_DRIVE_RR 3
-#define DRIVE_ENCODER_COUNTS_PER_FOOT 535
+#define DRIVE_ENCODER_COUNTS_PER_FOOT 535.0
 
 class Drivetrain {
 
@@ -27,6 +27,8 @@ void resetEncoders();
 void encoderWrite(double rightDistance, double leftDistance);
 bool autonDrivetrain(double rVelocity, double lVelocity, double rDistance, double lDistance);
 double velocityMultiplier(double firstV, double secondV, double firstEncoderSpeed, double secondEncoderSpeed);
+bool autonLimeDrive(double speed, double angle, double area);
+
 
 private:
 WPI_TalonSRX  m_lDriveF;

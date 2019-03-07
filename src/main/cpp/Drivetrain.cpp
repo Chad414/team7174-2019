@@ -22,11 +22,11 @@ double Drivetrain::getDistance() {
 }
 
 double Drivetrain::getRDistance() {
-	return m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT;
+	return (m_rDriveR.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT);
 }
 
 double Drivetrain::getLDistance() {
-	return -m_lDriveF.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT;
+	return (-m_lDriveF.GetSelectedSensorPosition(0) / DRIVE_ENCODER_COUNTS_PER_FOOT);
 }
 
 double Drivetrain::getRVelocity() {
@@ -37,22 +37,48 @@ double Drivetrain::getLVelocity() {
 }
  
 bool Drivetrain::autonDrivetrain(double rVelocity, double lVelocity, double rDistance, double lDistance){
-	if(abs(getRDistance()) < rDistance){
-		m_rSpeedGroup.Set(velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
+	m_drive.SetSafetyEnabled(false);
+	if(abs(getRDistance()) < (rDistance - 0.3)){
+		//m_rSpeedGroup.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
+		//m_rDriveF.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
+		//m_rDriveR.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
+
+		m_rDriveF.Set(-rVelocity);
+		m_rDriveR.Set(-rVelocity);
     }
+	else if(abs(getRDistance()) < rDistance){
+		//m_rSpeedGroup.Set(-rVelocity);
+		m_rDriveF.Set(-0.1);
+		m_rDriveR.Set(-0.1);
+	}
 	else{
-		m_rSpeedGroup.Set(0.0);
+		//m_rSpeedGroup.Set(0.0);
+		m_rDriveF.Set(0.0);
+		m_rDriveR.Set(0.0);
 	}
 
-	if(abs(getLDistance()) < lDistance){
-		m_lSpeedGroup.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
-    }
+	if(abs(getLDistance()) < (lDistance - 0.3)){
+		//m_lSpeedGroup.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
+		//m_lDriveF.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
+		//m_lDriveR.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
+		m_lDriveF.Set(lVelocity);
+		m_lDriveR.Set(lVelocity);
+	}
+	else if(abs(getLDistance()) < lDistance){
+		//m_lSpeedGroup.Set(lVelocity);
+		m_lDriveF.Set(0.1);
+		m_lDriveR.Set(0.1);
+	}
 	else{
-		m_lSpeedGroup.Set(0.0);
+		//m_lSpeedGroup.Set(0.0);
+		m_lDriveF.Set(0.0);
+		m_lDriveR.Set(0.0);
 	}
 	
 	if ((abs(getRDistance()) >= rDistance) && abs(getLDistance()) >= lDistance){
+		resetEncoders();
 		return true;
+
 	}
 	else {
 		return false;
@@ -86,6 +112,32 @@ void Drivetrain::resetEncoders() {
 	m_rDriveR.SetSelectedSensorPosition(0.0);
 }
 
+double Drivetrain::velocityMultiplier(double firstV, double secondV, double firstEncoderSpeed, double secondEncoderSpeed){
+	double ratio = (firstV/secondV);
+	double vRatio = (firstEncoderSpeed/secondEncoderSpeed);
+	if((vRatio/ratio) < 1.0){
+		return ((ratio/vRatio) * firstV);
+	}
+	else{
+		return 1.0 * firstV;
+	}
+}
+
+bool Drivetrain::autonLimeDrive(double speed, double angle, double area){
+	m_drive.ArcadeDrive(speed, angle);
+	if (area > 8){
+		return true;
+	}
+	else {
+        return false;
+    }
+}
+
+
+
+
+
+
 
 /*
 double Drivetrain::velocityMultiplier(){
@@ -103,26 +155,3 @@ double Drivetrain::velocityMultiplier(){
 		return 1.0;
 	}
 	*/
-
-double Drivetrain::velocityMultiplier(double firstV, double secondV, double firstEncoderSpeed, double secondEncoderSpeed){
-
-double ratio = (firstV/secondV);
-double vRatio = (firstEncoderSpeed/secondEncoderSpeed);
-
-if((vRatio/ratio) < 1.0){
-	return ((ratio/vRatio) * firstV);
-}
-else{
- return 1.0 * firstV;
-}
-
-
-
-
-}
-
-
-
-
-
-

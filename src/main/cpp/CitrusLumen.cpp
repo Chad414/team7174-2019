@@ -10,6 +10,7 @@ double CitrusLumen::targetOffset_Vertical(){
     return table->GetNumber("ty",0.0);
 }
 double CitrusLumen::targetOffset_Horizontal(){
+    toggleLimelight(true);
     return (table->GetNumber("tx",0.0));
     //left offset is positive, right offset is negative
 }
@@ -17,6 +18,7 @@ double CitrusLumen::targetSkew(){
     return table->GetNumber("ts",0.0);
 }
 double CitrusLumen::targetArea(){
+    toggleLimelight(true);
     return table->GetNumber("ta",0.0);
 }
 
@@ -36,12 +38,12 @@ double CitrusLumen::forwardSpeed() {
 }
 
 double CitrusLumen::horizontalBallSpeed(){
-    currentOffset=targetOffset_Horizontal();
-    if ((targetOffset_Horizontal() - getBallCorrection()) > 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
-        return std::min(LIMELIGHT_TURNSPEED, targetOffset_Horizontal() * 0.12) ;
+    currentOffset = targetOffset_Horizontal() - getBallCorrection();
+    if (currentOffset > 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
+        return std::min(LIMELIGHT_TURNSPEED, currentOffset * 0.12) ;
     }
-    else if ((targetOffset_Horizontal() - getBallCorrection()) < 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
-        return std::max(-LIMELIGHT_TURNSPEED, targetOffset_Horizontal() * 0.12);
+    else if (currentOffset < 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
+        return std::max(-LIMELIGHT_TURNSPEED, currentOffset * 0.12);
     }
     else{
         return 0;
@@ -49,12 +51,12 @@ double CitrusLumen::horizontalBallSpeed(){
 }
 
 double CitrusLumen::horizontalHatchSpeed(){
-    currentOffset=targetOffset_Horizontal();
-    if ((targetOffset_Horizontal() - getHatchCorrection()) > 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
-        return std::min(LIMELIGHT_TURNSPEED, targetOffset_Horizontal() * 0.12) ;
+    currentOffset=targetOffset_Horizontal() - getHatchCorrection();
+    if (currentOffset > 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
+        return std::min(LIMELIGHT_TURNSPEED, currentOffset * 0.12) ;
     }
     else if ((targetOffset_Horizontal() - getHatchCorrection()) < 0 && abs( currentOffset ) > LIMELIGHT_TOLERANCE){
-        return std::max(-LIMELIGHT_TURNSPEED, targetOffset_Horizontal() * 0.12);
+        return std::max(-LIMELIGHT_TURNSPEED, currentOffset * 0.12);
     }
     else{
         return 0;
@@ -67,4 +69,17 @@ double CitrusLumen::getBallCorrection(){
 
 double CitrusLumen::getHatchCorrection(){
     return hatchCorrectionMultiplier * targetArea();
+}
+
+void CitrusLumen::toggleLimelight(bool onOff){
+    if (onOff == true){
+        table->PutNumber("ledMode", 0);
+        table->PutNumber("camMode", 0);
+    }
+
+    else if (onOff == false){
+        table->PutNumber("ledMode", 1);
+        table->PutNumber("camMode", 1);
+    }
+    else{}
 }

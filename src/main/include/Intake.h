@@ -5,6 +5,8 @@
 #include <frc/Talon.h>
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
+#include <frc/Timer.h>
+
 
 #define RBALL_OBTAINER_VICTOR 6
 #define LBALL_OBTAINER_VICTOR 7
@@ -23,9 +25,17 @@ class Intake {
   void encoderWrite(double angleDistance);
   double getEncoder2Distance();
 
+  bool autonAngle(double angleDistance);
+  bool autonInOut(double speed, double seconds);
+  void autonTimerPrep();
+  
+
 private:
   WPI_VictorSPX  LBallObtainer;
   WPI_VictorSPX  RBallObtainer;
   WPI_TalonSRX  BallAngle;  
+  frc::Timer autonTimer;
+
+  bool timerStart;
   //frc::Encoder *angleEncoder;
 };

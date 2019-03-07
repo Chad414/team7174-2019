@@ -5,22 +5,16 @@ Intake::Intake()
 :LBallObtainer(LBALL_OBTAINER_VICTOR),
 RBallObtainer(RBALL_OBTAINER_VICTOR),
 BallAngle(BALL_ANGLE_TALON)
- {
+{
      
-//angleEncoder = new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X);
- }
+}
 
- double Intake::getEncoder2Distance(){
-
-     //return angleEncoder->Get();
-    
- }
 
 void Intake::inOutBall(double speed) {
 
     LBallObtainer.Set(speed);
     RBallObtainer.Set(speed);
- }
+}
 
 void Intake::inOutAngle(double speed) {
     BallAngle.Set(speed);
@@ -49,4 +43,40 @@ void Intake::encoderWrite(double angleDistance){
     else {
         BallAngle.Set(0.0);
     }
+}
+
+bool Intake::autonAngle(double angleDistance){
+	if(abs(angleDistance-getDistance())>2 && getDistance() < angleDistance ){
+        BallAngle.Set(-0.5);
+        return false;
+    }
+	else if (abs(angleDistance-getDistance())>2 &&getDistance() > angleDistance){
+        BallAngle.Set(0.5);
+        return false;
+	}
+    else {
+        BallAngle.Set(0.0);
+        return true;
+    }
+}
+bool Intake::autonInOut(double speed, double seconds){
+    if (timerStart = false){
+        autonTimer.Start();
+        timerStart = true;
+    }
+    LBallObtainer.Set(speed);
+    RBallObtainer.Set(speed);
+    
+    if (autonTimer.Get()>seconds){
+        autonTimer.Reset();
+        timerStart = false;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void Intake::autonTimerPrep(){
+    timerStart = false;
 }

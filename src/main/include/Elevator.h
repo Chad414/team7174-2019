@@ -5,10 +5,10 @@
 #include <frc/Talon.h>
 #include <frc/Ultrasonic.h>
 #include <frc/SerialPort.h>
-//#include <frc/DigitalInput.h>
+#include <frc/I2C.h>
 
 #define ELEVATOR_TALON 0
-#define TOLERANCE_INCHES 0.25
+#define TOLERANCE_INCHES 1.5
 #define VOLTAGE_MULTIPLIER 40.2969294
 
 class Elevator {
@@ -17,13 +17,15 @@ class Elevator {
   Elevator();
 
   void translateElevator(double speed);
+  bool autonElevator(double height);
   
-  double getUltraInches();
-  //double getUltra2Inches();
+  double getLazerInches();
 
   void setHeight(double height);
 
 private:
+
+  uint8_t buffer;
 
   WPI_TalonSRX Lift;
   //frc::Ultrasonic ultra;
@@ -31,7 +33,7 @@ private:
   
   //frc::AnalogInput *ai;
 
-
+  frc::I2C lazer;
   double currentHeight=0;
   int upDown = 0;
 

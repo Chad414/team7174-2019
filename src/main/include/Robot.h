@@ -16,6 +16,9 @@
 #define JOYSTICK2_PORT 1
 #define ELEVATOR_SPEED 0.5
 
+#define START_POSITION 1
+#define ROCKET_OR_TRANSPORT 1
+
 class Robot : public frc::TimedRobot {
  public:
   Robot();
