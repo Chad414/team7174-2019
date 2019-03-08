@@ -88,7 +88,7 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
         autonCase++;}break;
 
       case 1://Turn toward rocket.
-      if (m_drivetrain.autonDrivetrain(-0.5, 0.5, 1.0, 1.0)){
+      if (m_drivetrain.autonDrivetrain(0.5, -0.5, 1.0, 1.0)){
         autonCase++;}break;
 
       case 2://Drive forward toward rocket.
@@ -97,7 +97,8 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
 
       case 3://hatch limelight and lower intake angle and raise elevator
       if (m_intake.autonAngle(-60) && m_elevator.autonElevator(15) && m_drivetrain.autonLimeDrive(m_lime.forwardSpeed(), m_lime.horizontalHatchSpeed(), m_lime.targetArea())){
-        autonCase++;}break;
+        autonCase++;}break; 
+        
     
       case 4://deploy hatch
       if (m_drivetrain.autonDrivetrain(0.4, 0.4, 1.0, 1.0)){
@@ -110,12 +111,34 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
       case 6://back robot
       if (m_drivetrain.autonDrivetrain(-0.4, -0.4, 1.0, 1.0)){
        autonCase++;}break;
+
+      case 7: //spin around
+      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 2.5, 2.5)){
+        autonCase++;}break;
+      case 8:
+      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 4.0, 4.0)){
+        autonCase++;}break;
+      case 9:
+      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 4.0, 4.0)){
+        autonCase++;}break;
+      case 10:
+      if(m_drivetrain.autonLimeDrive(m_lime.forwardSpeed(), m_lime.horizontalHatchSpeed(), m_lime.targetArea())){
+        autonCase++;}break;
+      case 11:
+      if(m_drivetrain.autonDrivetrain(0.5,0.5, 0.2, 0.2)){
+        autonCase++;}break;      
+
+        
+      
+      
     }
   }
 
   else if (START_POSITION == 0) /*CENTER START*/ {
     switch (autonCase){
 
+      
+      
       case 0://Drive off platform.
       if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
       autonCase++;}break;
@@ -135,6 +158,7 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
       case 4://back robot
       if (m_drivetrain.autonDrivetrain(-0.4, -0.4, 1.0, 1.0)){
        autonCase++;}break;
+       
     }
   }
 
@@ -150,13 +174,14 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 //   COUT   ///////////////////////////////////////
-  //Robot::consoleOut("range: ", m_elevator.getLazerInches());
+  Robot::consoleOut("range: ", m_elevator.getLazerInches());
   //Robot::consoleOut("Angle encoder counts: ", m_intake.getDistance());
   //Robot::consoleOut("Angle Velocity: ", m_intake.getAngleVelocity());
 
-  Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
+  //Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
   //Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
   //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getRDistance());
+  //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getYaw());
 
   //Robot::consoleOut("Limelight ta: ", m_lime.targetDistance());
   //Robot::consoleOut("Limelight target detected: ", m_lime.targetLocated());

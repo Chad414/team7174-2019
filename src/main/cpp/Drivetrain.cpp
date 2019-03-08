@@ -7,7 +7,8 @@ Drivetrain::Drivetrain()
 	m_rDriveR(TALON_DRIVE_RR),
 	m_lSpeedGroup( m_lDriveF, m_lDriveR),
 	m_rSpeedGroup(m_rDriveF, m_rDriveR),
-	m_drive(m_lSpeedGroup, m_rSpeedGroup)
+	m_drive(m_lSpeedGroup, m_rSpeedGroup),
+	pidgey(&m_lDriveR)
 {
 		m_drive.SetSafetyEnabled(false);		
 }
@@ -15,6 +16,12 @@ Drivetrain::Drivetrain()
 void Drivetrain::ArcadeDrive(double speed, double angle) {
 	m_drive.SetSafetyEnabled(true);
 	m_drive.ArcadeDrive(speed, angle);
+}
+
+double Drivetrain::getYaw(){
+	return m_lDriveR.GetSelectedSensorPosition(0);
+	pidgey.GetYawPitchRoll(xyz);
+	 xyz[1];
 }
 
 double Drivetrain::getDistance() {

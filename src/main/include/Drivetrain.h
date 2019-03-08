@@ -22,6 +22,8 @@ double getRDistance();
 double getLDistance();
 double getRVelocity();
 double getLVelocity();
+double getYaw();
+
 
 void resetEncoders();
 void encoderWrite(double rightDistance, double leftDistance);
@@ -38,6 +40,8 @@ WPI_TalonSRX  m_rDriveR;
 frc::SpeedControllerGroup m_lSpeedGroup;
 frc::SpeedControllerGroup m_rSpeedGroup;
 frc::DifferentialDrive m_drive;
+PigeonIMU pidgey;
+double xyz[3];
 
 //Robot m_robot;
 };
