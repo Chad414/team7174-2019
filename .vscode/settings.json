@@ -16,6 +16,7 @@
   "C_Cpp.intelliSenseEngineFallback": "Disabled",
   "files.associations": {
     "cmath": "cpp",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "ostream": "cpp"
   }
 }

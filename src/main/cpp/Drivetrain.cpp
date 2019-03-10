@@ -45,7 +45,7 @@ double Drivetrain::getLVelocity() {
  
 bool Drivetrain::autonDrivetrain(double rVelocity, double lVelocity, double rDistance, double lDistance){
 	m_drive.SetSafetyEnabled(false);
-	if(abs(getRDistance()) < (rDistance - 0.3)){
+	if(abs(getRDistance()) < (rDistance - 0.2)){
 		//m_rSpeedGroup.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
 		//m_rDriveF.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
 		//m_rDriveR.Set(-velocityMultiplier(rVelocity, lVelocity, getRVelocity(), getLVelocity()));
@@ -64,7 +64,7 @@ bool Drivetrain::autonDrivetrain(double rVelocity, double lVelocity, double rDis
 		m_rDriveR.Set(0.0);
 	}
 
-	if(abs(getLDistance()) < (lDistance - 0.3)){
+	if(abs(getLDistance()) < (lDistance - 0.2)){
 		//m_lSpeedGroup.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
 		//m_lDriveF.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
 		//m_lDriveR.Set(velocityMultiplier(lVelocity, rVelocity, getLVelocity(), getRVelocity()));
@@ -83,8 +83,9 @@ bool Drivetrain::autonDrivetrain(double rVelocity, double lVelocity, double rDis
 	}
 	
 	if ((abs(getRDistance()) >= rDistance) && abs(getLDistance()) >= lDistance){
-		resetEncoders();
+		
 		return true;
+		//resetEncoders();
 
 	}
 	else {

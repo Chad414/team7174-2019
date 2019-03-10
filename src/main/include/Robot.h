@@ -14,10 +14,21 @@
 
 #define JOYSTICK_PORT 0
 #define JOYSTICK2_PORT 1
-#define ELEVATOR_SPEED 0.5
+#define ELEVATOR_SPEED 0.75
+
+#define HATCH_BOTTOM 24
+#define HATCH_MIDDLE 51
+#define HATCH_TOP 73
+
+#define BALL_BOTTOM 33
+#define BALL_MIDDLE 62
+#define BALL_TOP 73
 
 #define START_POSITION 0
 #define ROCKET_OR_TRANSPORT 1
+#define CENTER_TRANSPORT_RIGHTLEFT 1  //-1 = LEFT. 1 = RIGHT
+
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -42,6 +53,7 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
   double speedMultiplier;
+  bool autonAbort = false;
   
   Drivetrain m_drivetrain;
   ProtoJoystick m_driver;
@@ -49,4 +61,6 @@ class Robot : public frc::TimedRobot {
   CitrusLumen m_lime;
   Elevator m_elevator;
   Intake m_intake;
+
+  frc::Timer m_autonTimer;
 };

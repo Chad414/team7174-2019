@@ -10,7 +10,7 @@ double CitrusLumen::targetOffset_Vertical(){
     return table->GetNumber("ty",0.0);
 }
 double CitrusLumen::targetOffset_Horizontal(){
-    toggleLimelight(true);
+    //toggleLimelight(true);
     return (table->GetNumber("tx",0.0));
     //left offset is positive, right offset is negative
 }
@@ -18,7 +18,7 @@ double CitrusLumen::targetSkew(){
     return table->GetNumber("ts",0.0);
 }
 double CitrusLumen::targetArea(){
-    toggleLimelight(true);
+    //toggleLimelight(true);
     return table->GetNumber("ta",0.0);
 }
 
@@ -71,6 +71,7 @@ double CitrusLumen::getHatchCorrection(){
     return hatchCorrectionMultiplier * targetArea();
 }
 
+/*
 void CitrusLumen::toggleLimelight(bool onOff){
     if (onOff == true){
         table->PutNumber("ledMode", 0);
@@ -83,3 +84,4 @@ void CitrusLumen::toggleLimelight(bool onOff){
     }
     else{}
 }
+*/

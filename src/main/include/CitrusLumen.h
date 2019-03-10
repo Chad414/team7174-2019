@@ -9,7 +9,7 @@
 #define LIMELIGHT_SPEED 0.55//defaultl speed
 #define LIMELIGHT_MAX_AREA 8 //13.5 is too close
 #define LIMELIGHT_BALL_CORRECTION 12 //degrees correction for ball. Hatch shouldn't need corrections. 
-#define LIMELIGHT_HATCH_CORRECTION 0
+#define LIMELIGHT_HATCH_CORRECTION -4
 
 #define LIMELIGHT_TURNSPEED 0.5
 #define LIMELIGHT_TOLERANCE 2
@@ -34,7 +34,7 @@ class CitrusLumen {
   bool autonBallLimelight();
   bool autonHatchLimelight();
 
-  void toggleLimelight(bool onOff);
+  //void toggleLimelight(bool onOff);
   
  private:
   std::shared_ptr<NetworkTable> table;
