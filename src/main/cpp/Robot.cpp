@@ -43,7 +43,7 @@ void Robot::AutonomousInit() {
 
 void Robot::AutonomousPeriodic(){//tilt down 39 to 
 
-Robot::consoleOut("autonabort: ", autonAbort);
+  //Robot::consoleOut("autonabort: ", autonAbort);
 
   if (m_driver2.ButtonLB()){
     autonAbort=true;
@@ -51,8 +51,13 @@ Robot::consoleOut("autonabort: ", autonAbort);
   else{}
 
   if (autonAbort == true){
-  //   DRIVETRAIN   /////////////////////////////////
-
+   //   DRIVETRAIN   /////////////////////////////////
+    if (m_driver.ButtonB() || m_driver.ButtonA()){
+      m_lime.toggleLimelight(true);
+    }
+    else {
+      m_lime.toggleLimelight(false);  
+    }
     if((m_lime.targetLocated()) && (m_driver.ButtonB())) {
    	  m_drivetrain.ArcadeDrive(m_lime.forwardSpeed(), m_lime.horizontalBallSpeed() );
     }
@@ -74,7 +79,7 @@ Robot::consoleOut("autonabort: ", autonAbort);
       speedMultiplier = 1.0;
     }
     else{}
-  //   ELEVATOR   ///////////////////////////////////
+   //   ELEVATOR   ///////////////////////////////////
     if(m_driver2.ButtonY() && m_driver2.ButtonLT()) {//cargos
       m_elevator.setHeight(BALL_TOP);
     }
@@ -108,7 +113,7 @@ Robot::consoleOut("autonabort: ", autonAbort);
     else {//maintain height
       m_elevator.translateElevator(0.07);
     }
-  //   INTAKE   /////////////////////////////////////
+   //   INTAKE   /////////////////////////////////////
     if(m_driver.ButtonRT()) {
       m_intake.inOutBall(0.5);
     }
@@ -118,7 +123,7 @@ Robot::consoleOut("autonabort: ", autonAbort);
     else {
       m_intake.inOutBall(0.0);
     }
-  //   TILT   ///////////////////////////////////////
+   //   TILT   ///////////////////////////////////////
     if(fabs (m_driver2.AxisRY()) > 0.1) {//raw control driver 2
       m_intake.inOutAngle(m_driver2.AxisRY()*0.6);
     }
@@ -315,6 +320,8 @@ void Robot::TeleopPeriodic() {
   //Robot::consoleOut("Angle encoder counts: ", m_intake.getDistance());
   //Robot::consoleOut("Angle Velocity: ", m_intake.getAngleVelocity());
 
+
+
   //Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
   //Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
   //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getRDistance());
@@ -323,9 +330,18 @@ void Robot::TeleopPeriodic() {
   //Robot::consoleOut("Limelight ta: ", m_lime.targetDistance());
   //Robot::consoleOut("Limelight target detected: ", m_lime.targetLocated());
   //Robot::consoleOut("Limelight Speed: ", m_lime.limelightSpeed());
-
+  //Robot::consoleOut("Limelight Ball distance: ", m_lime.getBallDistance());
+  //Robot::consoleOut("limelightl hatch distance: ", m_lime.getHatchDistance());
+  //Robot::consoleOut("Limelight target vertical angle: ", m_lime.targetOffset_Horizontal());
 
 //   DRIVETRAIN   /////////////////////////////////
+  if (m_driver.ButtonB() || m_driver.ButtonA()){
+    m_lime.toggleLimelight(true);
+  }
+  else {
+    m_lime.toggleLimelight(false);  
+  }
+
   if((m_lime.targetLocated()) && (m_driver.ButtonB())) {
    	m_drivetrain.ArcadeDrive(m_lime.forwardSpeed(), m_lime.horizontalBallSpeed() );
   }
@@ -337,7 +353,6 @@ void Robot::TeleopPeriodic() {
   }
   else{
     m_drivetrain.ArcadeDrive(0.0, 0.0);
-    //m_lime.toggleLimelight(false);
   }
 
   if (m_driver.ButtonX()) {
@@ -348,8 +363,6 @@ void Robot::TeleopPeriodic() {
   }
   else{}
 //   ELEVATOR   ///////////////////////////////////
-
-
   if(m_driver2.ButtonY() && m_driver2.ButtonLT()) {//cargos
     m_elevator.setHeight(BALL_TOP);
   }
@@ -368,18 +381,27 @@ void Robot::TeleopPeriodic() {
   else if(m_driver2.ButtonA()) {
     m_elevator.setHeight(HATCH_BOTTOM);
   }
-  else if(m_driver.ButtonLB()) {//raw control driver 1
+  else if(m_driver.ButtonLB() && m_elevator.getLazerInches() > 13) {//raw control driver 1
     m_elevator.translateElevator(-ELEVATOR_SPEED);
   }
   else if(m_driver.ButtonRB()){
-     m_elevator.translateElevator(ELEVATOR_SPEED);
+    m_elevator.translateElevator(ELEVATOR_SPEED);
   }
+  /*
   else if(fabs (m_driver2.AxisLY()) > 0.1) {//raw control driver 2
-     m_elevator.translateElevator(-m_driver2.AxisLY()*0.7);
+    m_elevator.translateElevator(-m_driver2.AxisLY()*0.7);
   }
-  else if(fabs (m_driver2.AxisLY()) > 0.1){
-     m_elevator.translateElevator(-m_driver2.AxisLY()*0.7);
+  */
+  else if(fabs (m_driver2.AxisLY()) > 0.1) {//raw control driver 2
+    if (m_driver2.AxisLY() >= 0) {
+    m_elevator.translateElevator(-m_driver2.AxisLY() * 1.0);
+    }
+    else if (m_driver2.AxisLY() < 0){
+    m_elevator.translateElevator(-m_driver2.AxisLY() * 0.7);
+    }
+    else {}
   }
+
   else {//maintain height
      m_elevator.translateElevator(0.07);
   }
@@ -395,10 +417,10 @@ void Robot::TeleopPeriodic() {
   }
 //   TILT   ///////////////////////////////////////
   if(fabs (m_driver2.AxisRY()) > 0.1) {//raw control driver 2
-    m_intake.inOutAngle(m_driver2.AxisRY()*0.6);
+    m_intake.inOutAngle(m_driver2.AxisRY() * 1.0);
   }
   else if(fabs (m_driver2.AxisRY()) > 0.1){
-    m_intake.inOutAngle(m_driver2.AxisRY()*0.6);
+    m_intake.inOutAngle(m_driver2.AxisRY() * 1.0);
   }
   else if (m_driver2.ButtonRB()){
     m_intake.encoderWrite(0);
@@ -410,9 +432,22 @@ void Robot::TeleopPeriodic() {
     m_intake.inOutAngle(0.0);
   }
 
-  //Add driver2.ButtonB or LB push forward hatch down and out. 
-
-  
+//Add driver2.ButtonB or LB push forward hatch down and out. 
+  if (m_driver2.ButtonLB()){
+    switch (hatchDisengageCase){
+      case 0:
+      if (m_drivetrain.autonDrivetrain(0.4, 0.4, -0.25, -0.25)){
+        m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
+/*
+      case 1:
+      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 0.5, 0.5)){
+        m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
+  */
+    }
+  }
+  else{
+    hatchDisengageCase = 0;
+  }
 }
 
 void Robot::TestPeriodic() {}

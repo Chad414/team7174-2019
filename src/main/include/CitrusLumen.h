@@ -13,6 +13,11 @@
 
 #define LIMELIGHT_TURNSPEED 0.5
 #define LIMELIGHT_TOLERANCE 2
+#define LIMELIGHT_HEIGHT 32.0
+#define HATCH_VISION_STRIP_HEIGHT 29.0
+#define BALL_VISION_STRIP_HEIGHT 38.0
+#define LIMELIGHT_ANGLE 0.0
+
 
 
 class CitrusLumen {
@@ -34,7 +39,10 @@ class CitrusLumen {
   bool autonBallLimelight();
   bool autonHatchLimelight();
 
-  //void toggleLimelight(bool onOff);
+  double getBallDistance();
+  double getHatchDistance();
+
+  void toggleLimelight(bool onOff);
   
  private:
   std::shared_ptr<NetworkTable> table;

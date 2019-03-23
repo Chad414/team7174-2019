@@ -44,6 +44,8 @@ class Robot : public frc::TimedRobot {
   void consoleOut(std::string desc, double output);
   int consoleOutputCounter;  
   int autonCase;
+
+  int hatchDisengageCase;
   //frc::Timer autonTimer;
 
 
