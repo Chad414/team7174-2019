@@ -3,6 +3,7 @@
 
 Elevator::Elevator()
 :Lift(ELEVATOR_TALON),
+m_elevatorPID(1/18.0, 0.0, 0.0, 0.0, 0.02),
 lazer(frc::I2C::Port::kOnboard, 0x03)
  {
      
@@ -68,4 +69,9 @@ void Elevator::setHeight(double height) {
     else{
         Lift.Set(0.06);
     }
+}
+
+void Elevator::setHeightPID(double height){
+    double command = m_elevatorPID.compute(getLazerInches(), height);
+    Lift.Set(command + 0.07);
 }

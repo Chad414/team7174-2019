@@ -20,8 +20,8 @@
 #define HATCH_MIDDLE 51
 #define HATCH_TOP 73
 
-#define BALL_BOTTOM 33
-#define BALL_MIDDLE 62
+#define BALL_BOTTOM 36
+#define BALL_MIDDLE 50//61
 #define BALL_TOP 73
 
 #define START_POSITION 0

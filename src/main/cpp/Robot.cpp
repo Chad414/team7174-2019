@@ -14,7 +14,7 @@ Robot::Robot()
    }
 
 void Robot::consoleOut(std::string desc, double output){
-  if (consoleOutputCounter==50){
+  if (consoleOutputCounter==25){
   std::cout << desc << output << std::endl;
   consoleOutputCounter = 0;
   }
@@ -26,6 +26,7 @@ void Robot::consoleOut(std::string desc, double output){
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
+  m_lime.toggleLimelight(false);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 }
 
@@ -41,16 +42,13 @@ void Robot::AutonomousInit() {
   m_autonTimer.Reset();
 }
 
-void Robot::AutonomousPeriodic(){//tilt down 39 to 
-
-  //Robot::consoleOut("autonabort: ", autonAbort);
-
+void Robot::AutonomousPeriodic(){
   if (m_driver2.ButtonLB()){
     autonAbort=true;
   }
   else{}
 
-  if (autonAbort == true){
+  if (autonAbort == true){//All controller functions.
    //   DRIVETRAIN   /////////////////////////////////
     if (m_driver.ButtonB() || m_driver.ButtonA()){
       m_lime.toggleLimelight(true);
@@ -140,46 +138,27 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
       m_intake.inOutAngle(0.0);
     }
   }
-
-  else {
   
+  else {
   if (START_POSITION == 1) /*RIGHT START*/ {
     switch (autonCase){
-  
       case 0://Drive off platform.
-      if (m_drivetrain.autonDrivetrain(0.3, 0.3, 3.2, 3.2)){
-        std::cout<<"step 1 done"<<std::endl;
-        autonCase++;}break;
-       
-      case 1://Turn toward rocket.
-      if (m_drivetrain.autonDrivetrain(0.5, -0.5, 0.75, 0.75)){
-        std::cout<<"step 2 done"<<std::endl;
-        autonCase++;}break;
+      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
+        m_drivetrain.resetEncoders();autonCase++;}break;
 
-      case 2://Drive forward toward rocket.
-      if (m_drivetrain.autonDrivetrain(0.5, 0.5, 3.0, 3.0)){
-        std::cout<<"step 3 done"<<std::endl;
-        autonCase++;}break;
-
-      case 3://hatch limelight
-      if (m_drivetrain.autonLimeDrive(m_lime.forwardSpeed(), m_lime.horizontalHatchSpeed(), m_lime.targetArea())){
-        autonCase++;}break;
-      case 4://lower intake angle and raise elevator
-      if (m_intake.autonAngle(-60)){
-        autonCase++;}break;
-      /*    
-      case 4://deploy hatch
-      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 1.0, 1.0)){
-        autonCase++;}break;
-    
-      case 5://lower elevator
-      if (m_elevator.autonElevator(18)){
-       autonCase++;}break;
-
-      case 6://back robot
-      if (m_drivetrain.autonDrivetrain(-0.4, -0.4, 1.0, 1.0)){
-       autonCase++;}break;
-       */
+      case 1:
+       m_autonTimer.Start();
+        if (m_autonTimer.Get() > 5.0) {
+          if (m_drivetrain.autonDrivetrain(-0.4, 0.4, 1.0, 1.0)){
+              m_drivetrain.resetEncoders();
+            autonCase++;
+            m_autonTimer.Stop();
+            m_autonTimer.Reset();
+          }break;
+        }
+      case 2:
+      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
+        m_drivetrain.resetEncoders();autonCase++;}break;
     }
   }
 
@@ -188,51 +167,6 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
     case 0://Drive off platform.
       if (m_drivetrain.autonDrivetrain(0.8, 0.8, 4.0, 4.0)){
         autonCase++;}break;
-
-      case 1://Turn toward rocket.
-      if (m_drivetrain.autonDrivetrain(0.5, -0.5, 1.0, 1.0)){
-        autonCase++;}break;
-
-      case 2://Drive forward toward rocket.
-      if (m_drivetrain.autonDrivetrain(0.5, 0.5, 3.0, 3.0)){
-        autonCase++;}break;
-
-      case 3://hatch limelight and lower intake angle and raise elevator
-      if (m_intake.autonAngle(-60) && m_elevator.autonElevator(15) && m_drivetrain.autonLimeDrive(m_lime.forwardSpeed(), m_lime.horizontalHatchSpeed(), m_lime.targetArea())){
-        autonCase++;}break; 
-        
-    
-      case 4://deploy hatch
-      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 1.0, 1.0)){
-        autonCase++;}break;
-    
-      case 5://lower elevator
-      if (m_elevator.autonElevator(18)){
-       autonCase++;}break;
-
-      case 6://back robot
-      if (m_drivetrain.autonDrivetrain(-0.4, -0.4, 1.0, 1.0)){
-       autonCase++;}break;
-
-      case 7: //spin around
-      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 2.5, 2.5)){
-        autonCase++;}break;
-      case 8:
-      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 4.0, 4.0)){
-        autonCase++;}break;
-      case 9:
-      if(m_drivetrain.autonDrivetrain(0.5, -0.5, 4.0, 4.0)){
-        autonCase++;}break;
-      case 10:
-      if(m_drivetrain.autonLimeDrive(m_lime.forwardSpeed(), m_lime.horizontalHatchSpeed(), m_lime.targetArea())){
-        autonCase++;}break;
-      case 11:
-      if(m_drivetrain.autonDrivetrain(0.5,0.5, 0.2, 0.2)){
-        autonCase++;}break;      
-
-        
-      
-      
     }
   }
 
@@ -241,12 +175,8 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
       switch (autonCase){
         case 0://Drive off platform.
         if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
-          m_drivetrain.resetEncoders();
-          autonCase++;
-          std::cout << "Case 0 Finished" << std::endl;
-          }break;
+          m_drivetrain.resetEncoders();autonCase++;}break;
         case 1:
-                  std::cout << "Case 1 start" << std::endl;
                 
        // m_autonTimer.Start();
         //if (m_autonTimer.Get() > 5.0) {
@@ -273,7 +203,7 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
         case 7:
         if (m_intake.autonAngle(-121)){
           autonCase++;}break;
-/*
+        /*
         case 8://deploy hatch
         if (m_drivetrain.autonDrivetrain(0.4, 0.4, 0.4, 0.4)){
           m_drivetrain.resetEncoders();
@@ -287,7 +217,7 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
         case 10://back robot
         if (m_drivetrain.autonDrivetrain(-0.4, -0.4, 1.0, 1.0)){
           m_drivetrain.resetEncoders();autonCase++;}break;
-          */
+        */
       }
     }
 
@@ -297,7 +227,6 @@ void Robot::AutonomousPeriodic(){//tilt down 39 to
   }
 
   else{}
-
   }
 }
 
@@ -311,16 +240,17 @@ void Robot::TeleopInit() {
   m_drivetrain.resetEncoders();
   m_intake.resetEncoders();
   speedMultiplier = 1.0;
-  //m_lime.toggleLimelight(false);
 }
 
 void Robot::TeleopPeriodic() {
 //   COUT   ///////////////////////////////////////
-  Robot::consoleOut("range: ", m_elevator.getLazerInches());
+  //Robot::consoleOut("range: ", m_elevator.getLazerInches());
   //Robot::consoleOut("Angle encoder counts: ", m_intake.getDistance());
   //Robot::consoleOut("Angle Velocity: ", m_intake.getAngleVelocity());
-
-
+  
+  //Robot::consoleOut("filtMeas: ", m_elevator.m_elevatorPID.getFiltMeas());
+  //Robot::consoleOut("error: ", m_elevator.m_elevatorPID.getError());
+  //Robot::consoleOut("command: ", m_elevator.m_elevatorPID.getCommand());
 
   //Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
   //Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
@@ -363,35 +293,32 @@ void Robot::TeleopPeriodic() {
   }
   else{}
 //   ELEVATOR   ///////////////////////////////////
-  if(m_driver2.ButtonY() && m_driver2.ButtonLT()) {//cargos
-    m_elevator.setHeight(BALL_TOP);
-  }
-  else if(m_driver2.ButtonX() && m_driver2.ButtonLT()) {
-    m_elevator.setHeight(BALL_MIDDLE);
-  }
-  else if(m_driver2.ButtonA() && m_driver2.ButtonLT()) {
-    m_elevator.setHeight(BALL_BOTTOM);
-  }
-  else if(m_driver2.ButtonY()) {//hatches
-    m_elevator.setHeight(HATCH_TOP);
+  if(m_driver2.ButtonY()) {//cargos
+    m_elevator.setHeightPID(BALL_TOP);
   }
   else if(m_driver2.ButtonX()) {
-    m_elevator.setHeight(HATCH_MIDDLE);
+    m_elevator.setHeightPID(BALL_MIDDLE);
   }
   else if(m_driver2.ButtonA()) {
-    m_elevator.setHeight(HATCH_BOTTOM);
+    m_elevator.setHeightPID(BALL_BOTTOM);
   }
+  else if(m_driver2.ButtonY() && m_driver2.ButtonLT()) {//hatches
+    m_elevator.setHeightPID(HATCH_TOP);
+  }
+  else if(m_driver2.ButtonX() && m_driver2.ButtonLT()) {
+    m_elevator.setHeightPID(HATCH_MIDDLE);
+  }
+  else if(m_driver2.ButtonA() && m_driver2.ButtonLT()) {
+    m_elevator.setHeightPID(HATCH_BOTTOM);
+  }
+
   else if(m_driver.ButtonLB() && m_elevator.getLazerInches() > 13) {//raw control driver 1
     m_elevator.translateElevator(-ELEVATOR_SPEED);
   }
   else if(m_driver.ButtonRB()){
     m_elevator.translateElevator(ELEVATOR_SPEED);
   }
-  /*
-  else if(fabs (m_driver2.AxisLY()) > 0.1) {//raw control driver 2
-    m_elevator.translateElevator(-m_driver2.AxisLY()*0.7);
-  }
-  */
+
   else if(fabs (m_driver2.AxisLY()) > 0.1) {//raw control driver 2
     if (m_driver2.AxisLY() >= 0) {
     m_elevator.translateElevator(-m_driver2.AxisLY() * 1.0);
@@ -404,6 +331,7 @@ void Robot::TeleopPeriodic() {
 
   else {//maintain height
      m_elevator.translateElevator(0.07);
+     m_elevator.m_elevatorPID.reset();
   }
 //   INTAKE   /////////////////////////////////////
   if(m_driver.ButtonRT()) {
@@ -431,18 +359,17 @@ void Robot::TeleopPeriodic() {
   else{
     m_intake.inOutAngle(0.0);
   }
-
 //Add driver2.ButtonB or LB push forward hatch down and out. 
   if (m_driver2.ButtonLB()){
     switch (hatchDisengageCase){
       case 0:
       if (m_drivetrain.autonDrivetrain(0.4, 0.4, -0.25, -0.25)){
         m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
-/*
+      /*
       case 1:
       if (m_drivetrain.autonDrivetrain(0.4, 0.4, 0.5, 0.5)){
         m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
-  */
+      */
     }
   }
   else{

@@ -6,6 +6,8 @@
 #include <frc/Ultrasonic.h>
 #include <frc/SerialPort.h>
 #include <frc/I2C.h>
+#include "MyPID.h"
+
 
 #define ELEVATOR_TALON 0
 #define TOLERANCE_INCHES 1.5
@@ -22,8 +24,11 @@ class Elevator {
   double getLazerInches();
 
   void setHeight(double height);
-
+  void setHeightPID(double height);
+  
+  protobot::ProtoPID m_elevatorPID;
 private:
+  
 
   uint8_t buffer;
 
