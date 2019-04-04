@@ -43,6 +43,7 @@ void Robot::AutonomousInit() {
 }
 
 void Robot::AutonomousPeriodic(){
+  Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
   if (m_driver2.ButtonLB()){
     autonAbort=true;
   }
@@ -140,32 +141,82 @@ void Robot::AutonomousPeriodic(){
   }
   
   else {
-  if (START_POSITION == 1) /*RIGHT START*/ {
+  if (START_POSITION == 1) /*RIGHT START (Timer testing) */ {
     switch (autonCase){
       case 0://Drive off platform.
-      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
+      if (m_drivetrain.autonStraight(3.0)){
         m_drivetrain.resetEncoders();autonCase++;}break;
 
       case 1:
        m_autonTimer.Start();
         if (m_autonTimer.Get() > 5.0) {
           if (m_drivetrain.autonDrivetrain(-0.4, 0.4, 1.0, 1.0)){
-              m_drivetrain.resetEncoders();
+            m_drivetrain.resetEncoders();
             autonCase++;
             m_autonTimer.Stop();
             m_autonTimer.Reset();
-          }break;
+          }
         }
+      break;
+
       case 2:
       if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
         m_drivetrain.resetEncoders();autonCase++;}break;
+      
+      case 3:
+      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 3.0, 3.0)){
+        m_autonTimer.Start();
+        if (m_autonTimer.Get() > 5.0) {
+          m_drivetrain.resetEncoders();
+          autonCase++;
+          m_autonTimer.Stop();
+          m_autonTimer.Reset();
+        }
+      }
+      break;
     }
   }
 
-  else if (START_POSITION == -1) /*LEFT START*/ {
+  else if (START_POSITION == -1) /*LEFT START (PID testing) */ {
     switch (autonCase){
-    case 0://Drive off platform.
-      if (m_drivetrain.autonDrivetrain(0.8, 0.8, 4.0, 4.0)){
+    case 0:
+      if (m_drivetrain.autonPID(2.0)){
+        std::cout<<"case 0"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 1:
+      if (m_drivetrain.autonTurning(1.5)){
+        std::cout<<"case 1"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 2:
+      if (m_drivetrain.autonPID(2.0)){
+        std::cout<<"case 2"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 3:
+      if (m_drivetrain.autonTurning(1.5)){
+        std::cout<<"case 3"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 4:
+      if (m_drivetrain.autonPID(2.0)){
+        std::cout<<"case 4"<<std::endl;
+        autonCase++;}break;
+    case 5:
+      if (m_drivetrain.autonTurning(1.5)){
+        std::cout<<"case 5"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 6:
+      if (m_drivetrain.autonPID(2.0)){
+        std::cout<<"case 6"<<std::endl;
+        m_drivetrain.resetEncoders();
+        autonCase++;}break;
+    case 7:
+      if (m_drivetrain.autonTurning(1.5)){
+        std::cout<<"case 7"<<std::endl;
+        m_drivetrain.resetEncoders();
         autonCase++;}break;
     }
   }
@@ -251,11 +302,12 @@ void Robot::TeleopPeriodic() {
   //Robot::consoleOut("filtMeas: ", m_elevator.m_elevatorPID.getFiltMeas());
   //Robot::consoleOut("error: ", m_elevator.m_elevatorPID.getError());
   //Robot::consoleOut("command: ", m_elevator.m_elevatorPID.getCommand());
+  //Robot::consoleOut("command drive: ", m_drivetrain.m_drivePID.getCommand());
 
   //Robot::consoleOut("Drive encoders distance: ", m_drivetrain.getDistance());
   //Robot::consoleOut("Left Encoder distance: ", m_drivetrain.getLDistance());
   //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getRDistance());
-  //Robot::consoleOut("Right Encoder distance: ", m_drivetrain.getYaw());
+  //Robot::consoleOut("tilt distance: ", m_drivetrain.getYaw());
 
   //Robot::consoleOut("Limelight ta: ", m_lime.targetDistance());
   //Robot::consoleOut("Limelight target detected: ", m_lime.targetLocated());
@@ -281,8 +333,14 @@ void Robot::TeleopPeriodic() {
   else if((fabs (m_driver.AxisLY()) > 0.1 || fabs(m_driver.AxisRX())) > 0.1 ) {
 		m_drivetrain.ArcadeDrive(-(speedMultiplier * (m_driver.AxisLY())), (speedMultiplier * (m_driver.AxisRX())));
   }
+  
+  else if (m_driver2.ButtonY()){
+    //just for preventing encoder reset.
+  }
+  
   else{
     m_drivetrain.ArcadeDrive(0.0, 0.0);
+    m_drivetrain.resetEncoders();
   }
 
   if (m_driver.ButtonX()) {
@@ -291,19 +349,14 @@ void Robot::TeleopPeriodic() {
   else if (m_driver.ButtonY()) {
     speedMultiplier = 1.0;
   }
+
   else{}
 //   ELEVATOR   ///////////////////////////////////
-  if(m_driver2.ButtonY()) {//cargos
-    m_elevator.setHeightPID(BALL_TOP);
-  }
-  else if(m_driver2.ButtonX()) {
+  if(m_driver2.ButtonX()) {
     m_elevator.setHeightPID(BALL_MIDDLE);
   }
   else if(m_driver2.ButtonA()) {
     m_elevator.setHeightPID(BALL_BOTTOM);
-  }
-  else if(m_driver2.ButtonY() && m_driver2.ButtonLT()) {//hatches
-    m_elevator.setHeightPID(HATCH_TOP);
   }
   else if(m_driver2.ButtonX() && m_driver2.ButtonLT()) {
     m_elevator.setHeightPID(HATCH_MIDDLE);
@@ -311,12 +364,16 @@ void Robot::TeleopPeriodic() {
   else if(m_driver2.ButtonA() && m_driver2.ButtonLT()) {
     m_elevator.setHeightPID(HATCH_BOTTOM);
   }
-
-  else if(m_driver.ButtonLB() && m_elevator.getLazerInches() > 13) {//raw control driver 1
+  /*
+  else if(m_driver.ButtonLB() && m_elevator.getLazerInches() > 14) {//raw control driver 1
     m_elevator.translateElevator(-ELEVATOR_SPEED);
+  }*/
+  else if(m_driver.ButtonLB()){
+    m_elevator.setHeightPID(14.0);
   }
+
   else if(m_driver.ButtonRB()){
-    m_elevator.translateElevator(ELEVATOR_SPEED);
+    m_elevator.translateElevator(CARGO_SHIP);
   }
 
   else if(fabs (m_driver2.AxisLY()) > 0.1) {//raw control driver 2
@@ -335,10 +392,10 @@ void Robot::TeleopPeriodic() {
   }
 //   INTAKE   /////////////////////////////////////
   if(m_driver.ButtonRT()) {
-    m_intake.inOutBall(0.5);
+    m_intake.inOutBall(-0.5);
   }
   else if(m_driver.ButtonLT()){
-     m_intake.inOutBall(-0.8);
+     m_intake.inOutBall(0.8);
   }
   else {
      m_intake.inOutBall(0.0);
@@ -360,20 +417,33 @@ void Robot::TeleopPeriodic() {
     m_intake.inOutAngle(0.0);
   }
 //Add driver2.ButtonB or LB push forward hatch down and out. 
-  if (m_driver2.ButtonLB()){
+  if (m_driver2.ButtonY()){
     switch (hatchDisengageCase){
       case 0:
-      if (m_drivetrain.autonDrivetrain(0.4, 0.4, -0.25, -0.25)){
+      if (m_drivetrain.autonTurning(0.04)){
+        std::cout<<"case 0"<<std::endl;
         m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
-      /*
+
       case 1:
-      if (m_drivetrain.autonDrivetrain(0.4, 0.4, 0.5, 0.5)){
+      m_autonTimer.Start();
+      if (m_autonTimer.Get() > 1.0) {
+        m_elevator.setHeightPID(14);
+        hatchDisengageCase++;
+        m_autonTimer.Stop();
+        m_autonTimer.Reset();
+      }
+      break;
+
+      case 2:
+      if (m_drivetrain.autonPID(-1.0)){
+        std::cout<<"case 2"<<std::endl;
         m_drivetrain.resetEncoders();hatchDisengageCase++;}break;
-      */
     }
   }
   else{
     hatchDisengageCase = 0;
+    m_autonTimer.Stop();
+    m_autonTimer.Reset();
   }
 }
 

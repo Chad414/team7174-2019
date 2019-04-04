@@ -1,3 +1,5 @@
+#pragma once
+
 namespace protobot{
     class ProtoPID{
         public:
